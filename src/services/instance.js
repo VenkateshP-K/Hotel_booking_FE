@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //define baseurl for api
-const baseURL = 'http://localhost:4300/api';
+const baseURL = 'https://hotel-booking-be-hxbx.onrender.com/api';
 
 //create an axios instance
 const instance = axios.create({

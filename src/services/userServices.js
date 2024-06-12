@@ -2,10 +2,11 @@ import { instance,protectedInstance } from "./instance";
 
 //define the user services
 const userServices = {
-    //register user
+
+    //register a user 
     register : async (username,email,password,location) => {
-        return await instance.post("/users",{username,email,password,location});
-},
+        return await "http://localhost:4300/users",{username,email,password,location};
+    },
 
     //login user
     login : async (email,password) => {

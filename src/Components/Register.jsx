@@ -17,7 +17,7 @@ function Register() {
     //perform user registration
     userServices.register(username, email, password, location)
       .then((res) => {
-        alert(res.data.message)
+        alert(res.data)
 
         //clear the form
         setUserName('')
