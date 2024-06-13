@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 //define baseurl for api
-const baseURL = 'https://hotel-booking-be-hxbx.onrender.com/api';
+const baseURL = 'https://hotel-booking-be-o1qb.onrender.com/api';
 
 //create an axios instance
 const instance = axios.create({
@@ -20,5 +20,6 @@ const protectedInstance = axios.create({
     },
     withCredentials: true
 });
+
 
 export { instance, protectedInstance }

@@ -5,20 +5,19 @@ const userServices = {
 
     //register a user 
     register : async (username,email,password,location) => {
-        return await "http://localhost:4300/users",{username,email,password,location};
-    },
-
-    //login user
-    login : async (email,password) => {
-        return await instance.post("/users/login",{email,password},
-            {withCredentials: true}
+        return await instance.post("/users/register",{username,email,password,location}
+            
         );
     },
 
-    //get the current logged in user
-    getCurrentUser : async () => {
-        return await protectedInstance.get("/users/me");
-    },
+    login : async (email, password) => {
+        return instance.post('/users/login', { email, password }, { withCredentials: true });
+      };
+      
+    getMe : async () => {
+        return protectedInstance.get('/users/me');
+      };
+      
 
     //logout user
     logout : async () => {

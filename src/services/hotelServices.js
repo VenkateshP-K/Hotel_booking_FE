@@ -1,4 +1,4 @@
-import { protectedInstance } from "./instance";
+import { protecteInstance } from "./instance";
 
 const hotelServices = {
     getAllHotels: async () => {
