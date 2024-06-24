@@ -1,34 +1,27 @@
-import { instance,protectedInstance } from "./instance";
+import BookedRooms from "../Components/BookedRooms";
+import { instance, protectedInstance } from "./instance";
 
-//define the user services
 const userServices = {
 
-    //register a user 
-    register : async (username,email,password,location) => {
-        return await instance.post("/users/register",{username,email,password,location}
-            
-        );
+    getMe: async () => {
+        return await protectedInstance.get("/users/me");
     },
-
+    register : async (username, email, password, location) => {
+            return await instance.post("/users",
+                 { username, email, password, location });
+    },
     login : async (email, password) => {
-        return instance.post('/users/login', { email, password }, { withCredentials: true });
-      };
-      
-    getMe : async () => {
-        return protectedInstance.get('/users/me');
-      };
-      
-
-    //logout user
-    logout : async () => {
-        return await protectedInstance.post("/users/logout");
+        return await instance.post("/users/login", { email, password });
     },
-
-    //update user
-    updateUserById : async (userId,userData) => {
-        return await protectedInstance.put(`/users/update/${userId}`,userData);
+    logout: async () => {
+        return await instance.post("/users/logout");
+    },
+    bookedRooms : async () => {
+        return await protectedInstance.get("/users/bookedRooms");
+    },
+    updateMe: async (userId, profile) => {
+        return await protectedInstance.put(`/users/update/${userId}`, profile);
     }
 }
 
-//export the user services
 export default userServices;

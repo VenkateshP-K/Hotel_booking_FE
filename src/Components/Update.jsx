@@ -1,24 +1,25 @@
-import React from 'react'
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import userServices from '../services/userServices';
-import { useLoaderData } from 'react-router-dom';
 
-export const loader = async() => {
-  const users = await userServices.getCurrentuser();
-  return { users};
-}
 function Update() {
-  const userId = useLoaderData();
+  const loaderData = useLoaderData();
+  const { user, error: loadError } = loaderData || { user: null, error: 'Loader data is unavailable' };
+
   const [profile, setProfile] = useState({ username: '', email: '', location: '' });
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    userServices.getCurrentUser()
-      .then(response => setProfile(response.data))
-      .catch(error => setError('Failed to fetch user data'));
-  },[]);
+    if (user && user.data && user.data.user) {
+      setProfile({
+        username: user.data.user.username || '',
+        email: user.data.user.email || '',
+        location: user.data.user.location || '',
+      });
+    }
+  }, [user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,30 +29,51 @@ function Update() {
     });
   };
 
-  const handleSubmit = (e) => {
-    const userId = useLoaderData();
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    userServices
-      .updateUser(userId, profile)
-      .then(() => {
-        setLoading(false);
+    try {
+      if (!user || !user.data || !user.data.user) throw new Error('User data is not available');
+
+      const updatedProfile = {
+        username: profile.username,
+        email: profile.email,
+        location: profile.location,
+      };
+
+      const userId = user.data.user._id; // Make sure the userId is correctly fetched
+      const response = await userServices.updateMe(userId, updatedProfile);
+
+      if (response.status === 200) {
         setSuccess('Profile updated successfully');
-      })
-      .catch((error) => {
-        setLoading(false);
-        setError('Failed to update profile');
-      });
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 2000);
+      } else {
+        throw new Error('Failed to update profile');
+      }
+    } catch (error) {
+      console.error('Update profile error:', error);
+      setError('Failed to update profile');
+    }
   };
+
+  if (loadError) {
+    return <div className="alert alert-danger">{loadError}</div>;
+  }
+
+  if (!user) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="container mt-3">
       <div className="row">
         <div className="col-md-6 offset-md-3">
-          <div className='card'>
-            <div className='card-header'>
+          <div className="card">
+            <div className="card-header">
               <h2>Update Profile</h2>
             </div>
-            <div className='card-body'>
+            <div className="card-body">
               {error && <div className="alert alert-danger">{error}</div>}
               {success && <div className="alert alert-success">{success}</div>}
               <form onSubmit={handleSubmit}>
@@ -88,9 +110,7 @@ function Update() {
                     onChange={handleChange}
                   />
                 </div>
-                <button type="submit" className="btn btn-primary">
-                  {loading ? 'Updating...' : 'Submit'}
-                </button>
+                <button type="submit" className="btn btn-primary">Submit</button>
               </form>
             </div>
           </div>
@@ -100,4 +120,4 @@ function Update() {
   );
 }
 
-export default Update
+export default Update;

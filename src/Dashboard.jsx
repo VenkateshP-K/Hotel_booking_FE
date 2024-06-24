@@ -9,7 +9,7 @@ import { Outlet } from 'react-router-dom'
 
 export async function loader() {
   //get the current logged in user
-  const user = await userServices.getCurrentUser();
+  const user = await userServices.getMe();
 
   //return the user data
   return { user };

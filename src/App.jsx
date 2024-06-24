@@ -5,7 +5,7 @@ import Navbar from './Navbar'
 import Register from './Components/Register'
 import Login from './Components/Login'
 import Dashboard from './Dashboard'
-import { loader as userLoader } from './Dashboard'
+import {loader as userLoader} from './Dashboard'
 import {loader as roomsLoader} from './Components/Rooms'
 import {loader as hotelsLoader} from './Components/Hotels'
 import Rooms from './Components/Rooms'
@@ -15,6 +15,7 @@ import CreateHotel from './Admin/CreateHotel'
 import CreateRoom from './Admin/CreateRoom'
 import ManageHotel from './Admin/ManageHotel'
 import ManageRooms from './Admin/ManageRooms'
+import BookedRooms from './Components/BookedRooms'
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,12 @@ const router = createBrowserRouter([
       {
         path:'updateprofile',
         element: <Update/>,
+        loader: userLoader
+      },
+      {
+        path: 'bookedrooms',
+        element: <BookedRooms/>,
+        loader: userLoader
       }
     ]
   },

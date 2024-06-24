@@ -15,7 +15,7 @@ function SideBar() {
   const { user } = useLoaderData();
     const[active, setActive] = useState("Dashboard")
     //if the user role is user show this items
-    const items = user.data.user.role === "user" ? ["Hotels", "Rooms","UpdateProfile"] : ["createHotel", "createRoom","ManageHotel","ManageRooms"]
+    const items = user.data.user.role === "user" ? ["Hotels", "Rooms","UpdateProfile","BookedRooms"] : ["createHotel", "createRoom","ManageHotel","ManageRooms"]
   return (
     <div className="offcanvas offcanvas-start show text-bg-dark" style={{width:"200px"}} id='sidebar'>
        <div className="offcanvas-header">

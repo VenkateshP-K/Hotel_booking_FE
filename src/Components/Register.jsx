@@ -14,26 +14,29 @@ function Register() {
   const handleRegister = (e) => {
     e.preventDefault();
 
-    //perform user registration
+    // showToast("test", "success");
+    
+    // perform user registration
     userServices.register(username, email, password, location)
-      .then((res) => {
-        alert(res.data)
+      .then(response => {
+        alert(response.data.message);
 
-        //clear the form
-        setUserName('')
-        setEmail('')
-        setPassword('')
-        setLocation('')
+        // clear the form
+        setUserName("");
+        setEmail("");
+        setPassword("");
+        setLocation("");
 
-        //redirect to login page
+        // redirect to login page
         setTimeout(() => {
-          navigate('/Login')
-        }, 500)
+          navigate("/login");
+        }, 500);
       })
-      .catch((err) => {
-        console.log(err)
-      })
+      .catch(error => {
+        alert(error.response.data.message);
+      });
   }
+
   return (
     <>
       <div className="container mt-3">
