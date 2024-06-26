@@ -1,50 +1,53 @@
-import React from 'react'
-import { useLoaderData, useNavigate, Link } from 'react-router-dom'
-import './Components/Login'
-import Rooms from './Components/Rooms'
-import userServices from './services/userServices'
-import SideBar from './SideBar'
-import { Outlet } from 'react-router-dom'
-
+import React from 'react';
+import { useLoaderData, Outlet, useNavigate } from 'react-router-dom';
+import SideBar from './SideBar';
+import userServices from './services/userServices';
 
 export async function loader() {
-  //get the current logged in user
-  const user = await userServices.getMe();
-
-  //return the user data
-  return { user };
+  try {
+    const response = await userServices.getMe();
+    return { user: response.data.user };
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      throw new Response("", { status: 401 });
+    }
+    throw error;
+  }
 }
-function Dashboard() {
 
+function Dashboard() {
   const { user } = useLoaderData();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    userServices.logout();
-    navigate('/login');
-  }
+  const handleLogout = async () => {
+    try {
+      await userServices.logout();
+      localStorage.removeItem('token');
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
 
   return (
     <>
       <nav className="navbar bg-body-tertiary">
         <div className="container-fluid">
-          <a className="navbar-brand">Hi {user.data.user.username}</a>
-          <form className="d-flex" role="search">
-            <button className="btn btn-primary" type="submit" onClick={handleLogout}>LogOut</button>
-          </form>
+          <a className="navbar-brand">Hi {user.username}</a>
+          <button className="btn btn-primary" onClick={handleLogout}>Logout</button>
         </div>
       </nav>
 
-<div className="row mt-5">
-              <div className="col-md-3">
-                  <SideBar />
-                  </div>
-                <div className="col">
-                    <Outlet />
-                </div>
-        </div>  
+      <div className="row mt-5">
+        <div className="col-md-3">
+          <SideBar user={user} />
+        </div>
+        <div className="col-md-9">
+          <Outlet />
+        </div>
+      </div>
     </>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

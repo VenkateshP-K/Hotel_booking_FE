@@ -9,15 +9,14 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
-      const res = await userServices.login(email, password);
-      alert(res.data.message);
-      setEmail("");
-      setPassword("");
-      navigate("/dashboard");
-    } catch (err) {
-      alert(err.response?.data?.message || "Login failed");
+      const response = await userServices.login(email, password);
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        navigate('/dashboard');
+      }
+    } catch (error) {
+      console.error('Login error:', error);
     }
   };
 
