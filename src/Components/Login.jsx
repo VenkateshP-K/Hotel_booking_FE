@@ -23,7 +23,7 @@ function Login() {
   return (
     <div className="container mt-3">
       <div className="row">
-        <div className="col-md-6 offset-md-3">
+        <div className="col-md-3 offset-md-3">
           <div className='card'>
             <div className='card-header'>
               <h2>Login</h2>

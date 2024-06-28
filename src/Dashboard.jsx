@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLoaderData, Outlet, useNavigate } from 'react-router-dom';
+import { useLoaderData, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import SideBar from './SideBar';
 import userServices from './services/userServices';
 
@@ -18,6 +18,7 @@ export async function loader() {
 function Dashboard() {
   const { user } = useLoaderData();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = async () => {
     try {
@@ -29,9 +30,11 @@ function Dashboard() {
     }
   };
 
+  const isRootPath = location.pathname === '/dashboard';
+
   return (
     <>
-      <nav className="navbar bg-body-tertiary">
+      <nav className="navbar">
         <div className="container-fluid">
           <a className="navbar-brand">Hi {user.username}</a>
           <button className="btn btn-primary" onClick={handleLogout}>Logout</button>
@@ -43,6 +46,13 @@ function Dashboard() {
           <SideBar user={user} />
         </div>
         <div className="col-md-9">
+          {isRootPath && (
+            <>
+              <h2>Welcome</h2>
+              <p>Email: {user.email}</p>
+              <p>Location: {user.location}</p>
+            </>
+          )}
           <Outlet />
         </div>
       </div>

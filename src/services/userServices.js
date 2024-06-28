@@ -29,6 +29,12 @@ const userServices = {
     },
     updateMe: async (userId, profile) => {
         return await protectedInstance.put(`/users/update/${userId}`, profile);
+    },
+    getBookingDetails: async (bookingId) => {
+        return await protectedInstance.get(`/bookings/${bookingId}`);
+    },
+    processPayment: async (bookingId) => {
+        return await protectedInstance.post(`/bookings/${bookingId}/pay`);
     }
 }
 

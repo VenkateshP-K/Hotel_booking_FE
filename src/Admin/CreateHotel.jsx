@@ -16,6 +16,7 @@ function CreateHotel() {
         adminServices.createHotel(hotelData)
             .then((response) => {
                 console.log(response.data);
+                alert(response.data.message);
 
                 // Clear the form
                 setName("");

@@ -5,8 +5,8 @@ function SideBar({ user }) {
   const isAdmin = user && user.role === 'admin';
 
   return (
-    <div className="d-flex flex-column p-3 bg-light" style={{width: '200px'}}>
-      <ul className="nav nav-pills flex-column mb-auto">
+    <div className="d-flex" style={{width: '200px'}}>
+      <ul className="nav flex-column">
         <li>
           <Link to="/dashboard/hotels" className="nav-link link-dark">Hotels</Link>
         </li>
@@ -15,6 +15,9 @@ function SideBar({ user }) {
         </li>
         <li>
           <Link to="/dashboard/bookedrooms" className="nav-link link-dark">Booked Rooms</Link>
+        </li>
+        <li>
+          <Link to="/dashboard/update" className="nav-link link-dark">Update Profile</Link>
         </li>
         {isAdmin && (
           <>

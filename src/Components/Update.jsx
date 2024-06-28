@@ -33,36 +33,38 @@ function Update() {
         e.preventDefault();
         try {
             if (!user) throw new Error('User data is not available');
-
+    
             const updatedProfile = {
                 username: profile.username,
                 email: profile.email,
                 location: profile.location,
             };
-
-            const response = await userServices.updateMe(updatedProfile);
-
-            if (response.status === 200) {
+    
+            try {
+                const response = await userServices.updateMe(user.id, updatedProfile);
                 setSuccess('Profile updated successfully');
                 setTimeout(() => {
                     navigate('/dashboard');
                 }, 2000);
-            } else {
-                throw new Error('Failed to update profile');
+            } catch (error) {
+                console.error('Update profile error:', error);
+                if (error.response) {
+                    if (error.response.status === 404) {
+                        setError('User not found');
+                    } else if (error.response.status === 500) {
+                        setError('Server error. Please try again later.');
+                    } else {
+                        setError(error.response.data.message || 'Failed to update profile');
+                    }
+                } else {
+                    setError('Network error. Please check your connection.');
+                }
             }
         } catch (error) {
             console.error('Update profile error:', error);
-            setError('Failed to update profile');
+            setError(error.message);
         }
     };
-
-    if (loadError) {
-        return <div className="alert alert-danger">{loadError}</div>;
-    }
-
-    if (!user) {
-        return <div>Loading...</div>;
-    }
 
     return (
         <div className="container mt-3">

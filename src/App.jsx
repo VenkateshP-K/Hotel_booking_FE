@@ -16,6 +16,7 @@ import CreateRoom from './Admin/CreateRoom'
 import ManageHotel from './Admin/ManageHotel'
 import ManageRooms from './Admin/ManageRooms'
 import BookedRooms from './Components/BookedRooms'
+import PaymentGateway from './Components/PaymentGateway'
 
 const router = createBrowserRouter([
   {
@@ -47,7 +48,7 @@ const router = createBrowserRouter([
         loader: roomsLoader
       },
       {
-        path:'updateprofile',
+        path:'update',
         element: <Update/>,
         loader: userLoader
       },
@@ -55,7 +56,7 @@ const router = createBrowserRouter([
         path: 'bookedrooms',
         element: <BookedRooms/>,
         loader: userLoader
-      }
+      },
     ]
   },
 
@@ -84,7 +85,11 @@ const router = createBrowserRouter([
         loader: roomsLoader
       },
     ]
-  }
+  },
+  {
+    path: '/paymentGateway/:bookingId',
+    element: <PaymentGateway />,
+  },
 ])
 
 function App() {
