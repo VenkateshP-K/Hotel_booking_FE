@@ -29,7 +29,7 @@ function BookedRooms() {
       });
     } else {
       // Payment is being processed
-      alert(`Room Amount: Rs.${price} Paid Successfully`);
+      alert(`Room Amount: $${price} Paid Successfully`);
       setPaidBookings((prev) => ({
         ...prev,
         [bookingId]: true,
