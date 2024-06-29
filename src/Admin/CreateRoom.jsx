@@ -31,7 +31,7 @@ function CreateRoom() {
         try {
             // Perform create room
             const response = await roomServices.createRoom(roomData);
-            console.log(response);
+            console.log('Room creation response:', response);
             alert('Room created successfully!');
 
             // Clear the form
@@ -44,7 +44,7 @@ function CreateRoom() {
             setDate("");
             setHotelId("");
         } catch (error) {
-            console.error(error.response ? error.response.data : error.message);
+            console.error('Room creation error:', error.response ? error.response.data : error.message);
         }
     }
 

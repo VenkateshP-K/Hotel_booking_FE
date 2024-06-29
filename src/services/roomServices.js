@@ -8,8 +8,8 @@ const roomServices = {
     },
 
     //create room
-    createRoom: async () => {
-        const response = await protectedInstance.post("/rooms");
+    createRoom: async (roomData) => {
+        const response = await protectedInstance.post("/rooms",roomData);
         return response.data;
     },
  

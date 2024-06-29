@@ -21,10 +21,10 @@ function Login() {
   };
 
   return (
-    <div className="container mt-3">
+    <div className="container mt-3 "style={{width:"70%"}}>
       <div className="row">
         <div className="col-md-3 offset-md-3">
-          <div className='card'>
+          <div className='card' style={{ width: '18rem', marginTop: '60px' }} >
             <div className='card-header'>
               <h2>Login</h2>
             </div>

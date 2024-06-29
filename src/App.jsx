@@ -16,7 +16,6 @@ import CreateRoom from './Admin/CreateRoom'
 import ManageHotel from './Admin/ManageHotel'
 import ManageRooms from './Admin/ManageRooms'
 import BookedRooms from './Components/BookedRooms'
-import PaymentGateway from './Components/PaymentGateway'
 
 const router = createBrowserRouter([
   {
@@ -85,10 +84,6 @@ const router = createBrowserRouter([
         loader: roomsLoader
       },
     ]
-  },
-  {
-    path: '/paymentGateway/:bookingId',
-    element: <PaymentGateway />,
   },
 ])
 

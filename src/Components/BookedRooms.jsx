@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import userServices from '../services/userServices';
-import { useNavigate } from 'react-router-dom';
 
 function BookedRooms() {
   const [bookings, setBookings] = useState([]);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
+  const [paidBookings, setPaidBookings] = useState({});
 
   useEffect(() => {
     const fetchBookedRooms = async () => {
@@ -20,9 +19,27 @@ function BookedRooms() {
     fetchBookedRooms();
   }, []);
 
-  const handleProceedToPayment = (bookingId) => {
-    navigate(`/payment/${bookingId}`);
+  const handlePaymentToggle = (bookingId, price) => {
+    if (paidBookings[bookingId]) {
+      // Payment is being cancelled
+      setPaidBookings((prev) => {
+        const updated = { ...prev };
+        delete updated[bookingId];
+        return updated;
+      });
+    } else {
+      // Payment is being processed
+      alert(`Room Amount: Rs.${price} Paid Successfully`);
+      setPaidBookings((prev) => ({
+        ...prev,
+        [bookingId]: true,
+      }));
+    }
   };
+
+  if (error) {
+    return <div className="alert alert-danger">{error}</div>;
+  }
 
   if (!bookings || bookings.length === 0) {
     return <div>No booked rooms found.</div>;
@@ -43,7 +60,12 @@ function BookedRooms() {
                 <p className="card-text">Price: {booking.price}</p>
                 <p className="card-text">Date: {booking.date}</p>
                 <p className="card-text">Time: {booking.time}</p>
-                <button className="btn btn-primary" onClick={() => handleProceedToPayment(booking._id)}>Proceed to Payment</button>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => handlePaymentToggle(booking._id, booking.price)}
+                >
+                  {paidBookings[booking._id] ? 'Cancel Payment' : 'Proceed to Pay'}
+                </button>
               </div>
             </div>
           </div>
