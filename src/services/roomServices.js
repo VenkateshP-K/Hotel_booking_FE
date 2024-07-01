@@ -9,15 +9,15 @@ const roomServices = {
 
     //create room
     createRoom: async (roomData) => {
-        const response = await protectedInstance.post("/rooms",roomData);
-        return response.data;
-    },
+      const response = await protectedInstance.post("/rooms", roomData);
+      return response.data;
+  },
  
      //book a room
-     bookRoom: async (roomId) => {
-        const response = await protectedInstance.post(`/rooms/book/${roomId}`);
-        return response.data;
-     },
+     bookRoom : async (roomId, checkIn, checkOut) => {
+      const response = await protectedInstance.post(`/rooms/book/${roomId}`, { checkIn, checkOut });
+      return response.data;
+  },
      //unbookRoom
      unbookRoom: async (roomId) => {
         const response = await protectedInstance.post(`/rooms/unbook/${roomId}`);

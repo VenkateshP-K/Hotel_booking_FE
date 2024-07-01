@@ -14,7 +14,14 @@ function Register() {
   const handleRegister = (e) => {
     e.preventDefault();
 
-    // showToast("test", "success");
+    if(!username || !email || !password || !location) {
+      alert("All fields are required");
+      return;
+    }
+    if(password.length < 6){
+      alert("Password must be at least 6 characters long.");  
+      return;
+    }
     
     // perform user registration
     userServices.register(username, email, password, location)

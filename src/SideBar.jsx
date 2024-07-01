@@ -33,6 +33,9 @@ function SideBar({ user }) {
             <li>
               <Link to="/dashboard/manageRooms" className="nav-link link-dark">Manage Rooms</Link>
             </li>
+            <li>
+              <Link to="/dashboard/users" className="nav-link link-dark">Users</Link>
+            </li>
           </>
         )}
       </ul>

@@ -24,18 +24,25 @@ const userServices = {
           throw error;
         }
       },
-    bookedRooms: async () => {
-        return await protectedInstance.get("/users/bookedRooms");
+    getBookedRooms: async () => {
+        try {
+            const response = await protectedInstance.get("/users/bookedRooms");
+            console.log("Raw API response:", response.data);
+            return response.data; // Should already be in the format { bookings: [...] }
+        } catch (error) {
+            console.error("Error in getBookedRooms service:", error);
+            throw error;
+        }
     },
     updateMe: async (userId, profile) => {
         return await protectedInstance.put(`/users/update/${userId}`, profile);
     },
-    getBookingDetails: async (bookingId) => {
-        return await protectedInstance.get(`/bookings/${bookingId}`);
+    
+    //get all users
+    getAllUsers: async () => {
+        const response = await protectedInstance.get("/users");
+        return response.data.users;
     },
-    processPayment: async (bookingId) => {
-        return await protectedInstance.post(`/bookings/${bookingId}/pay`);
-    }
 }
 
 export default userServices;

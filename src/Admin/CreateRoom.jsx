@@ -4,17 +4,15 @@ import roomServices from '../services/roomServices';
 function CreateRoom() {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [capacity, setCapacity] = useState(0);
+    const [capacity, setCapacity] = useState(1);
     const [status, setStatus] = useState("available");
     const [amenities, setAmenities] = useState("");
-    const [date, setDate] = useState("");
     const [hotelId, setHotelId] = useState("");
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState(1);
 
     const handleRegister = async (e) => {
         e.preventDefault();
 
-        // Prepare the room data
         const roomData = {
             name,
             description,
@@ -22,26 +20,23 @@ function CreateRoom() {
             status,
             amenities: amenities.split(",").map(amenity => amenity.trim()),
             price,
-            date,
-            hotelId
+            hotelId, // Ensure hotelId is sent correctly
+            date: new Date() // Assuming you want to set the current date
         };
 
         console.log('Room Data to be sent:', roomData);
 
         try {
-            // Perform create room
             const response = await roomServices.createRoom(roomData);
             console.log('Room creation response:', response);
             alert('Room created successfully!');
 
-            // Clear the form
             setName("");
             setDescription("");
-            setCapacity(0);
+            setCapacity(1);
             setStatus("available");
             setAmenities("");
-            setPrice(0);
-            setDate("");
+            setPrice(1);
             setHotelId("");
         } catch (error) {
             console.error('Room creation error:', error.response ? error.response.data : error.message);
@@ -68,7 +63,7 @@ function CreateRoom() {
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="capacity" className="form-label">Capacity</label>
-                                    <input type="number" className="form-control" id="capacity" value={capacity} onChange={(e) => setCapacity(parseInt(e.target.value))} required />
+                                    <input type="number" className="form-control" id="capacity" value={capacity} onChange={(e) => setCapacity(parseInt(e.target.value) || 1)} required />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="status" className="form-label">Status</label>
@@ -83,11 +78,7 @@ function CreateRoom() {
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="price" className="form-label">Price</label>
-                                    <input type="number" className="form-control" id="price" value={price} onChange={(e) => setPrice(parseFloat(e.target.value))} required />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="date" className="form-label">Date</label>
-                                    <input type="date" className="form-control" id="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+                                    <input type="number" className="form-control" id="price" value={price} onChange={(e) => setPrice(parseFloat(e.target.value) || 1)} required />
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="hotelId" className="form-label">Hotel ID</label>

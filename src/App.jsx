@@ -8,6 +8,7 @@ import Dashboard from './Dashboard'
 import {loader as userLoader} from './Dashboard'
 import {loader as roomsLoader} from './Components/Rooms'
 import {loader as hotelsLoader} from './Components/Hotels'
+import { loader as usersLoader } from './Admin/Users'
 import Rooms from './Components/Rooms'
 import Hotels from './Components/Hotels'
 import Update from './Components/Update'
@@ -16,6 +17,7 @@ import CreateRoom from './Admin/CreateRoom'
 import ManageHotel from './Admin/ManageHotel'
 import ManageRooms from './Admin/ManageRooms'
 import BookedRooms from './Components/BookedRooms'
+import Users from './Admin/Users'
 
 const router = createBrowserRouter([
   {
@@ -83,6 +85,11 @@ const router = createBrowserRouter([
         element: <ManageRooms/>,
         loader: roomsLoader
       },
+      {
+        path : 'users',
+        element : <Users/>,
+        loader: usersLoader
+      }
     ]
   },
 ])
