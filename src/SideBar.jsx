@@ -5,36 +5,55 @@ function SideBar({ user }) {
   const isAdmin = user && user.role === 'admin';
 
   return (
-    <div className="d-flex" style={{width: '200px'}}>
+    <div className="d-flex" style={{width:'150px'}}>
       <ul className="nav flex-column">
         <li>
-          <Link to="/dashboard/hotels" className="nav-link link-dark">Hotels</Link>
+          <Link to="/dashboard/hotels" className="nav-link link-dark">
+          <button className="btn btn-dark" style={{width:'150px'}}>Hotels</button>
+          </Link>
         </li>
         <li>
-          <Link to="/dashboard/rooms" className="nav-link link-dark">Rooms</Link>
+          <Link to="/dashboard/rooms" className="nav-link link-dark">
+          <button className="btn btn-dark" style={{width:'150px'}}>Rooms</button>
+          </Link>
         </li>
         <li>
-          <Link to="/dashboard/bookedrooms" className="nav-link link-dark">Booked Rooms</Link>
+          <Link to="/dashboard/bookedrooms" className="nav-link link-dark">
+          <button className="btn btn-dark" style={{width:'150px'}}>Booked Rooms
+          </button>
+          </Link>
         </li>
         <li>
-          <Link to="/dashboard/update" className="nav-link link-dark">Update Profile</Link>
+          <Link to="/dashboard/update" className="nav-link link-dark">
+          <button className="btn btn-dark" style={{width:'150px'}}>Update Profile</button>
+          </Link>
         </li>
         {isAdmin && (
           <>
             <li>
-              <Link to="/dashboard/createHotel" className="nav-link link-dark">Create Hotel</Link>
+              <Link to="/dashboard/createHotel" className="nav-link link-dark">
+               <button className="btn btn-dark" style={{width:'150px'}}>Create Hotel</button>
+              </Link>
             </li>
             <li>
-              <Link to="/dashboard/createRoom" className="nav-link link-dark">Create Room</Link>
+              <Link to="/dashboard/createRoom" className="nav-link link-dark">
+               <button className="btn btn-dark" style={{width:'150px'}}>Create Room</button>
+              </Link>
             </li>
             <li>
-              <Link to="/dashboard/manageHotel" className="nav-link link-dark">Manage Hotel</Link>
+              <Link to="/dashboard/manageHotel" className="nav-link link-dark">
+                <button className="btn btn-dark" style={{width:'150px'}}>Manage Hotels</button>
+              </Link>
             </li>
             <li>
-              <Link to="/dashboard/manageRooms" className="nav-link link-dark">Manage Rooms</Link>
+              <Link to="/dashboard/manageRooms" className="nav-link link-dark">
+                <button className="btn btn-dark" style={{width:'150px'}}>Manage Rooms</button>
+              </Link>
             </li>
             <li>
-              <Link to="/dashboard/users" className="nav-link link-dark">Users</Link>
+              <Link to="/dashboard/users" className="nav-link link-dark">
+               <button className="btn btn-dark" style={{width:'150px'}}>Manage Users</button>
+              </Link>
             </li>
           </>
         )}

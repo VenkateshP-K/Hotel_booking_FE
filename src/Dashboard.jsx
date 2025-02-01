@@ -36,8 +36,8 @@ function Dashboard() {
     <>
       <nav className="navbar">
         <div className="container-fluid">
-          <a className="navbar-brand">Hi {user.username}</a>
-          <button className="btn btn-primary" onClick={handleLogout}>Logout</button>
+          <h3 className="navbar-brand">Hi {user.username}</h3>
+          <button className="btn btn-dark" onClick={handleLogout}>Logout</button>
         </div>
       </nav>
 
